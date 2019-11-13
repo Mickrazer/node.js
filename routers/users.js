@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     users.then((arrUsers) => {
     res.set('Content-Type', 'application/json');
-    const user = JSON.parse(arrUsers).find((item) => item.id === req.params.id);
+    const user = JSON.parse(arrUsers).find((item) => item._id === req.params.id);
     if(user){
       res.send(user);
     } else {
