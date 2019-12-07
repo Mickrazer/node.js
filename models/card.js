@@ -10,7 +10,7 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
-    match: /^http/,
+    match: /^https?:\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-]){1,}?$/,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +24,7 @@ const cardSchema = new mongoose.Schema({
   }],
     createdAt: {
     type: Date,
-    default: Data.now,
+    default: Date.now,
   },
 });
 
