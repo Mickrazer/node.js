@@ -1,8 +1,18 @@
-const router = require('express').Router();
+const error = (err, req, res, next) => {
+  if(!err.message) {
+    next();
+  }
+  const notFound = err.message.indexOf('not found');
+  const failedError = err.message.indexOf('Cast to ObjectId failed');
+  if (notFound || failedError) {
+    return res.status(404).json({ error: err.message });
+  }
+  return res.status(500).json({ error: err.message });
+};
 
-router.get('*', (req, res) => {
+const someNotFound = (req, res) => {
   res.set('Content-Type', 'application/json');
-  res.send({'message': 'Запрвшиваемый ресурс не найден'}, 404)
-});
+  res.status(404).send('{ "message": "Ресурс не найден" }');
+};
 
-module.exports = router;
+module.exports = { error, someNotFound };
