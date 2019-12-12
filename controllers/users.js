@@ -2,6 +2,7 @@ const User = require('../models/user');
 const checkNull = require('../modul/checkNull');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const key = require('../modul/key')
 
 const getUsers = (req, res, next) => {
   User.find({})
