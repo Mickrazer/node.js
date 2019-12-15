@@ -7,7 +7,8 @@ const cardsRouter = require(path.join(__dirname, 'routers/cards.js'));
 const { error, someNotFound } = require(path.join(__dirname, 'routers/notFound.js'));
 const { PORT = 3000 } = process.env;
 const { createUser, login } = require('./controllers/users');
-const auth = require('./middleweres/auth')
+const auth = require('./middleweres/auth');
+const cookieParser = require('cookie-parser');
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/users', auth, usersRouter);
