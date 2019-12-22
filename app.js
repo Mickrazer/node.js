@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
-app.get('/crash-test', () =>{
+app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Внимание! Проблемы с сервером!');
   }, 0);
@@ -50,7 +50,7 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
-    name: Joi.string().required().min(8).max(30),
+    name: Joi.string().required().min(2).max(30),
     avatar: Joi.string().required().uri(),
     about: Joi.string().required().min(2).max(30),
   }),
