@@ -4,6 +4,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const key = require('../modul/key');
 const { NODE_ENV, JWT_SECRET } = process.env;
+require('dotenv').config();
 
 const getUsers = (req, res, next) => {
   User.find({})
