@@ -1,8 +1,11 @@
+require('dotenv').config();
 const User = require('../models/user');
 const checkNull = require('../modul/checkNull');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const key = require('../modul/key')
+const key = require('../modul/key');
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -36,7 +39,7 @@ const login = (req, res) =>{
   const {email, password} = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({_id: user._id }, key, { expiresIn: '7d' });
+      const token = jwt.sign({_id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : key, { expiresIn: '7d' });
       res.cookie('jwt', token, {
         maxAge: 9000000,
         httpOnly: true,
